@@ -7,6 +7,7 @@
             </div>
             <img src="@/assets/home01.png" class="image" />
         </div>
+
         <div class="inner-right-container">
             <div class="register-content">
                 <h1>阿貓數學</h1>
@@ -14,12 +15,24 @@
             </div>
             <img src="@/assets/home02.png" class="image" />
         </div>
+        <div class="inner-sign-up-container">
+            <AsyncLoginForm :class="{ 'sign-up-model': isToggle }" />
+            <AsyncRegisterForm :class="{ 'sign-up-model': isToggle }" />
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 let isToggle = ref<boolean>(false);
+
+import { defineAsyncComponent } from 'vue';
+const AsyncLoginForm = defineAsyncComponent(
+    () => import('@/components/LoginForm/LoginForm.vue'),
+);
+const AsyncRegisterForm = defineAsyncComponent(
+    () => import('@/components/RegisterForm/RegisterForm.vue'),
+);
 
 const handleToggle = () => {
     console.log('213');
@@ -60,6 +73,7 @@ const handleToggle = () => {
     justify-content: space-around;
     flex-direction: column;
     padding: 3rem 10% 2rem 10%;
+    pointer-events: all;
 }
 
 .inner-right-container {
@@ -70,7 +84,9 @@ const handleToggle = () => {
     justify-content: space-around;
     flex-direction: column;
     padding: 3rem 10% 2rem 10%;
+    pointer-events: none;
 }
+
 .container .inner-right-container .register-content,
 .container .inner-right-container .image {
     transform: translateX(1000px);
@@ -78,21 +94,35 @@ const handleToggle = () => {
     transition-delay: 0.2s;
 }
 
+/* 註冊 */
+.inner-sign-up-container {
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    right: 0;
+    top: 13%;
+    transition: 1s ease-in-out;
+    transition-delay: 0.2s;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
 /* 動畫樣式 */
+.image {
+    width: 500px;
+    z-index: 2;
+}
+
 .container.sign-up-model::before {
     transform: translate(100%, -50%);
     transition: 1s ease-in-out;
     right: 52%;
 }
+
 .container .inner-left-container .login-content,
 .container .inner-left-container .image {
     transition: 1s ease-in-out;
     transition-delay: 0.2s;
-}
-
-.image {
-    width: 500px;
-    z-index: 2;
 }
 
 .container.sign-up-model .inner-right-container .register-content,
@@ -107,5 +137,22 @@ const handleToggle = () => {
     transform: translateX(-1000px);
     transition: 1s ease-in-out;
     transition-delay: 0.2s;
+}
+
+.container.sign-up-model .inner-sign-up-container {
+    width: 50%;
+    height: 50%;
+    top: 13%;
+    right: 50%;
+    transition: 1s ease-in-out;
+    transition-delay: 0.2s;
+}
+
+.container.sign-up-model .inner-right-container {
+    pointer-events: all;
+}
+
+.container.sign-up-model .inner-left-container {
+    pointer-events: none;
 }
 </style>
