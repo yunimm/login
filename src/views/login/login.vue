@@ -35,7 +35,6 @@ const AsyncRegisterForm = defineAsyncComponent(
 );
 
 const handleToggle = () => {
-    console.log('213');
     isToggle.value = !isToggle.value;
 };
 </script>
@@ -62,12 +61,13 @@ const handleToggle = () => {
     right: 48%;
     top: -10%;
     transition: 1s ease-in-out;
+    z-index: 2;
 }
 
 .inner-left-container {
     width: 0;
     flex: 1;
-    z-index: 1;
+    z-index: 2;
     align-items: center;
     display: flex;
     justify-content: space-around;
@@ -85,6 +85,7 @@ const handleToggle = () => {
     flex-direction: column;
     padding: 3rem 10% 2rem 10%;
     pointer-events: none;
+    z-index: 2;
 }
 
 .container .inner-right-container .register-content,
